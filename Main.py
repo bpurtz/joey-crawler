@@ -13,7 +13,7 @@ def transformer(htmlText):
   for x in sourcesMid:
       a = x[5:-1]
       sourcesRefined.append(a)
-  # sourcesRefined = filter(lambda x: re.search("https", x) != None, sourcesRefined)
+  sourcesRefined = filter(lambda x: re.search("https", x) != None, sourcesRefined)
   sourcesRefined = set(sourcesRefined)
   # print(f'FOUND {sourcesRefined}')
   return sourcesRefined

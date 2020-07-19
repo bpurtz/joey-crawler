@@ -54,5 +54,6 @@ class ImageCrawler:
       for x in sourcesMid:
           a = x[6:-1]
           sourcesRefined.add(a)
+      sourcesRefined = filter(lambda x: re.search("https", x) != None, sourcesRefined)
       print(f'Links found: {sourcesRefined}')
       return sourcesRefined
