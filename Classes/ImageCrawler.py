@@ -6,7 +6,7 @@ import html
 from bs4 import BeautifulSoup
 
 class ImageCrawler:
-    def __init__(self, starting_url, transformer, dataLimitCount, recursionLimit):
+    def __init__(self, starting_url, transformer, dataLimitCount, recursionLimit, verify_links):
       # function that transforms html and returns a set of desired data
       self.transformer = transformer
       # url to be visited first
@@ -23,6 +23,8 @@ class ImageCrawler:
       self.toBeVisited = set()
       # data returned from transformer
       self.data = set()
+      # function returns list of verified links
+      self.verify_links = verify_links
         
     def start(self, badVisited = 0, url=''):
       destination = self.starting_url if len(url) == 0 else url
@@ -44,7 +46,9 @@ class ImageCrawler:
 
           self.data = self.data.union(transformed)
           links = self.getLinks(bs_obj)
-          for x in links:
+          refined_links = self.verify_links(links)
+          
+          for x in refined_links:
             self.start(0 if len(transformed) > 0 else badVisited+1, x)
       else:
         print(f'Stopping work with COUNT: {self.recursionCount} and DATA: {len(self.data)}')
