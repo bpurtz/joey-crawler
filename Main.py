@@ -6,7 +6,7 @@ import re
 def main():
   ic = CrawlerController()
   ic.start()
-  print(ic.data)
+  ic.printData()
 
 if __name__ == "__main__":
   main()
